@@ -1,0 +1,50 @@
+.cards--item--del{
+    display: flex;
+    flex-direction: row-reverse;
+    font-size: 25px;
+    position: absolute;
+    width: 100%;   
+    z-index: 998;
+    color: maroon;
+    top: -15px;
+    right: -15px;
+}
+
+.cards--item--del:hover{
+    cursor: pointer;
+}    
+
+.cards-text-edit {
+    width: 100%;
+    line-height: 24px;
+}
+
+.cards-edit-container textarea{
+    margin: 10px 0px;
+    padding: 5px;
+    font-size: 15px;
+}
+
+.cards-edit-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%
+}
+.cards-edit-container .btn {
+    background-color: black;
+    border: 1px solid white;
+    width: 50%;    
+    margin: 10px 0px; 
+    align-self: center;   
+}    
+
+.cards-edit-container .btn:hover {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+}
+.cards-edit-error {
+    color: white;
+    text-align: center;
+    background-color: maroon;
+}

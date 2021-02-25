@@ -4,7 +4,8 @@ import './CardItem.css';
 import { Button } from './Button';
 
 function CardItem(props) {                                                               
-    const {id, src, text, label, path, numBlogs,closeIcon, onDelete} = props;
+    const {id, src, text, label, path, numBlogs,closeIcon, onDelete, offlineBlogSource} = props;
+    
     const [dblclick, setDblClick] = useState(false);
     const [newDescription, setNewDescription] = useState('');
     const [errorNewDescription, setErrorNewDescription] = useState('');
@@ -32,37 +33,49 @@ function CardItem(props) {
         
      }
      
+     console.log(offlineBlogSource);
+
      //get the 1 blogs
      const fetchBlog = async(id) => {
-         const res = await fetch(`${serverPath}/blogs/${id}`);
-         const data = await res.json(); 
-         return data;
+         try {
+            const res = await fetch(`${serverPath}/blogs/${id}`);
+            const data = await res.json(); 
+            return data;
+         } catch {
+                console.error('error sa pag fetch 1');
+         }
+
      }
      
 
-    //get all blog;
-    const fetchBlogs = async () => {
-        const res = await fetch(`${serverPath}/blogs`);
-        const data = await res.json();
-        return data;
-    }
+    // //get all blog;
+    // const fetchBlogs = async () => {
+    //     const res = await fetch(`${serverPath}/blogs`);
+    //     const data = await res.json();
+    //     return data;
+    // }
 
      const editDescription = async(id, desc) => {
-        const allBlog = await fetchBlog(id);
-        const updateBlog ={ ...allBlog, description: desc }
-        const res = await fetch(`${serverPath}/blogs/${id}`, {
-            method: 'PUT',
-            headers: {
-              'Content-type': 'application/json'
-            },
-            body: JSON.stringify(updateBlog)
-           })   
+        try {
+            const allBlog = await fetchBlog(id);
+            const updateBlog ={ ...allBlog, description: desc }
+            const res = await fetch(`${serverPath}/blogs/${id}`, {
+                method: 'PUT',
+                headers: {
+                  'Content-type': 'application/json'
+                },
+                body: JSON.stringify(updateBlog)
+               })   
+        } catch {
+            console.error('error sa page update');
+        }
+ 
      }
 
     return (
         <>
             <li className={`cards--item  ${numBlogs >= 3 ? 'cards3' : `cards${numBlogs}`}`} >            
-                     { closeIcon && <div className="cards--item--del" onClick={() => onDelete(id)}>
+                     { closeIcon && <div className="cards--item--del" onClick={() =>  onDelete(id) }>
                         <i className="fas fa-times-circle"></i>
                     </div> }
                     <Link className={`cards--item--link`}  to={path}>

@@ -8,35 +8,54 @@ function Cards(props) {
 
     const serverPath = 'http://localhost:5000';    
     const [blogs, setBlogs] = useState([]);   
-    const [numBlogs, setNumBlogs2] = useState(0);  
-
-    
-
+    // const [numBlogs, setNumBlogs2] = useState(0);  
+    const [offlineBlogSource, setOfflineBlogSource] = useState(false);
 
     useEffect( () => {
         const getBlogs = async () => {
-            const blogsFromServer = await fetchBlogs();
-            setBlogs(blogsFromServer);    
-            // if no blog capture from JSON, get from local.
-            if (blogsFromServer.length === 0 ) {               
-                setBlogs(localBlogSource);
-            }                       
+
+            // initially set to local from JSON, get from local.
+            setBlogs(localBlogSource);
+      
+            try {
+                const blogsFromServer = await fetchBlogs();
+                if (blogsFromServer.length > 0 ) {         
+                    setBlogs([]);
+                    setBlogs(blogsFromServer);  
+                    console.log('wa ni eror');      
+                } 
+            } catch (e)  {
+
+                setOfflineBlogSource(true);
+                console.log('ni eror');                
+            }
+                                                                               
         }
-        getBlogs();                 
+        getBlogs();   
+        
+                      
     }, []);
 
-
+    
     //get blog;
-    const fetchBlogs = async () => {
-        const res = await fetch(`${serverPath}/blogs`);
-        const data = await res.json();
-        return data;
+    const fetchBlogs = async () => {        
+        try{
+            const res = await fetch(`${serverPath}/blogs`);
+            const data = await res.json();
+             return data;
+        }catch {
+            console.error('nothing to fetch');
+        }    
     }
 
     //delete blog
     const DeleteBlog = async(id) => {
-        await fetch(`${serverPath}/blogs/${id}`, { method : 'DELETE'});
-        setBlogs( blogs.filter( (blog) => blog.id !== id) ) 
+        try{
+            await fetch(`${serverPath}/blogs/${id}`, { method : 'DELETE'});
+            setBlogs( blogs.filter( (blog) => blog.id !== id) ) 
+        }catch {
+            console.error('nothing to delete');
+        }
     }
     
  
@@ -58,7 +77,8 @@ function Cards(props) {
                                         numBlogs={blogs.length} 
                                         closeIcon={closeIcon}  
                                         onDelete={ DeleteBlog }  
-                                        id={blog.id}                                                                
+                                        id={blog.id}  
+                                        offlineBlogSource = {offlineBlogSource}                                                              
                                         />   
 
                                     )   

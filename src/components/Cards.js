@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import CardItem from './CardItem'
+import { localBlogSource } from './BlogItem';
 import './Cards.css';
 
 function Cards(props) {
@@ -9,13 +10,19 @@ function Cards(props) {
     const [blogs, setBlogs] = useState([]);   
     const [numBlogs, setNumBlogs2] = useState(0);  
 
+    
+
 
     useEffect( () => {
         const getBlogs = async () => {
             const blogsFromServer = await fetchBlogs();
-            setBlogs(blogsFromServer);
+            setBlogs(blogsFromServer);    
+            // if no blog capture from JSON, get from local.
+            if (blogsFromServer.length === 0 ) {               
+                setBlogs(localBlogSource);
+            }                       
         }
-        getBlogs();
+        getBlogs();                 
     }, []);
 
 
@@ -31,8 +38,8 @@ function Cards(props) {
         await fetch(`${serverPath}/blogs/${id}`, { method : 'DELETE'});
         setBlogs( blogs.filter( (blog) => blog.id !== id) ) 
     }
-
-
+    
+ 
     return (
         <div className='cards'>
             { blogs.length>0 ? <h1> {heading}</h1> : <h1>No recent Blogs</h1> }

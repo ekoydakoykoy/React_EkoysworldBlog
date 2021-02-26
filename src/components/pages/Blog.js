@@ -5,7 +5,7 @@ import Cards from '../Cards';
 export default function Blog() {
     return (
         <>
-        <Cards heading='Recent Blog posts' closeIcon={true}/>
+        <Cards heading='Recent Blog posts' closeIcon={true} numOfPageToShow='2' />
         
         </>
     )

@@ -28,7 +28,7 @@ function Home (){
           
             <HeroSection /> 
             
-            <Cards heading="Check out this epic destinations!" closeIcon={false}/>
+            <Cards heading="Check out this epic destinations!" closeIcon={false}  numOfPageToShow='3'/>
             
             
         </>

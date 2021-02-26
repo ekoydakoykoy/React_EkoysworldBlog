@@ -2,14 +2,17 @@ import React, { useState, useEffect } from 'react'
 import CardItem from './CardItem'
 import { localBlogSource } from './BlogItem';
 import './Cards.css';
+import Pagination from './Pagination';
 
 function Cards(props) {
-    const { heading,closeIcon } = props;
+    const { heading, closeIcon, numOfPageToShow  } = props;
 
     const serverPath = 'http://localhost:5000';    
     const [blogs, setBlogs] = useState([]);   
     // const [numBlogs, setNumBlogs2] = useState(0);  
     const [offlineBlogSource, setOfflineBlogSource] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postPerPage, setPostPerPage] = useState(numOfPageToShow);
 
     useEffect( () => {
         const getBlogs = async () => {
@@ -31,8 +34,7 @@ function Cards(props) {
             }
                                                                                
         }
-        getBlogs();   
-        
+        getBlogs();           
                       
     }, []);
 
@@ -57,7 +59,14 @@ function Cards(props) {
             console.error('nothing to delete');
         }
     }
+
+    //show numberof items in the show cards ;
+    const indexOfLastBlog = currentPage * postPerPage;
+    const indexOfFirstBlog = indexOfLastBlog - postPerPage;
+    const currentPosts = blogs.slice(indexOfFirstBlog, indexOfLastBlog);
     
+    //paginate function 
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
  
     return (
         <div className='cards'>
@@ -66,7 +75,7 @@ function Cards(props) {
                 <div className="cards--wrapper">   
                         <ul className="cards--items">
                             {
-                                blogs.map( (blog) => 
+                                currentPosts.map( (blog) => 
                                     (                                                                                                                                                                            
                                         <CardItem 
                                         key={blog.id}
@@ -74,18 +83,20 @@ function Cards(props) {
                                         text={blog.description}
                                         label={blog.category}
                                         path='/blog'
-                                        numBlogs={blogs.length} 
+                                        numBlogs={currentPosts.length} 
                                         closeIcon={closeIcon}  
                                         onDelete={ DeleteBlog }  
                                         id={blog.id}  
-                                        offlineBlogSource = {offlineBlogSource}                                                              
+                                        offlineBlogSource = {offlineBlogSource}                                                                                                  
                                         />   
 
                                     )   
                                 )
                             }                                                   
-                        </ul>                     
-                 </div>  
+                        </ul>   
+
+                 </div> 
+                 { closeIcon && <Pagination postPerPage={postPerPage} totalBlogs={blogs.length} paginate={paginate} currentPage={currentPage}/> }      
             </div>             
         </div>
     );    

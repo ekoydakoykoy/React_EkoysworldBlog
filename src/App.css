@@ -6,8 +6,6 @@
   }
   
   .home,
-  .services,
-  .products,
   .add-post-form {
     display: flex;
     height: 90vh;

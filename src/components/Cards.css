@@ -1,5 +1,5 @@
  .cards {
-    padding: 4rem;
+    padding: 2rem;
     background: #fff;
   }
   
@@ -18,7 +18,7 @@
 
   .cards--wrapper {
     position: relative;
-    margin: 50px 0 45px;    
+    margin: 50px 0 5px;    
   }
   
   .cards--items {

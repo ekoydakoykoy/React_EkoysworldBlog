@@ -44,7 +44,7 @@ const Navbar = () => {
                         <i className="fas fa-globe-asia" /> &nbsp; Ekoy's World 
                     </Link>
                     <div className="menu-icon" onClick={handleClick}>
-                        <i className={theme ? 'theme-dark' : 'theme-light'} className={click ? 'fas fa-times' : 'fas fa-bars' } />
+                        <i className={`${theme ? 'theme-dark' : 'theme-light'} ${click ? 'fas fa-times' : 'fas fa-bars'}`} />
                     </div>
                     <div className={`navbar-theme ${theme ? 'theme-dark' : 'theme-light'}`} onClick={handleChangeTheme}>                        
                             { 
@@ -53,7 +53,7 @@ const Navbar = () => {
                             }
                                                                                
                     </div>
-                    <ul className={click ? 'nav-menu active' : 'nav-menu'}>
+                    <ul className={`${click ? 'nav-menu active' : 'nav-menu'} ${theme ? 'theme-dark' : 'theme-light'}`}>
                        
                         <li className="nav-item">
                             <Link to='/' className={`nav-links ${theme ? 'theme-dark' : 'theme-light'}`} onClick={closeMobileMenu}>

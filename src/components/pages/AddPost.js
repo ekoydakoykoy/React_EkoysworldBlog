@@ -59,10 +59,8 @@ export default function AddPost() {
         const data = await res.json();
         return data;
     }
-    
-
-
-        //add Blog
+            
+    //add Blog
   const addBlog = async(blog) => {
     const res = await fetch(`${serverPath}/blogs`, { 
       method: 'POST', 
@@ -75,7 +73,6 @@ export default function AddPost() {
      setBlogs([...blogs, data]);
     }
 
-    console.log(blogs);
     return (
         <>
         <form className='add-post-form' onSubmit={onSubmit}>

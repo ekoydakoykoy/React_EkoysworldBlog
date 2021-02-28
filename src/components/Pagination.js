@@ -14,6 +14,7 @@ const Pagination = (props) => {
     for(let i = 1; i<= Math.ceil(totalBlogs/postPerPage); i++) {
             pageNumbers.push(i);
     }
+
     return (
         <nav>
             <ul className='cards-pagination-container'>
@@ -22,8 +23,7 @@ const Pagination = (props) => {
                  </li>
                 { pageNumbers.map( number => (
                     <li key={number} className={`cards-pagination-items ${number === currentPage ? 'pagination-active' : ''}`} onClick={() => paginate(number)}>
-                        <a className={`cards-pagination-item`} > {number}</a>
-                        {console.log(currentPage) }
+                        <a className={`cards-pagination-item`} > {number}</a>                       
                     </li>
                 )) }
                 <li className='cards-pagination-items cards-pagination-item-last'> 

@@ -5,7 +5,7 @@ export const localBlogSource = [
       'category': 'Urban',
       'path': '/blog',
       'ord': 1,
-      'id': 2
+      'id': 1
     },
     {
       'description': 'Cycle through Japan with the picture-perfect view of the japanese alps and the cherry blossoms.',
@@ -20,7 +20,7 @@ export const localBlogSource = [
       'img_name': 'turkey.JPG',
       'category': 'Cycling',
       'path': '/blog',
-      'ord': 2,
+      'ord': 3,
       'id': 3
     },
     {
@@ -28,7 +28,7 @@ export const localBlogSource = [
       'img_name': 'mongolia.jpg',
       'category': 'Cycling',
       'path': '/blog',
-      'ord': 2,
+      'ord': 4,
       'id': 4
     },
     {
@@ -36,7 +36,7 @@ export const localBlogSource = [
       'img_name': 'kotor.JPG',
       'category': 'Hiking',
       'path': '/blog',
-      'ord': 3,
+      'ord': 5,
       'id': 5
     },
     {
@@ -44,7 +44,7 @@ export const localBlogSource = [
       'img_name': 'sydney.JPG',
       'category': 'Hiking',
       'path': '/blog',
-      'ord': 3,
+      'ord': 6,
       'id': 6
     },
     {
@@ -52,7 +52,7 @@ export const localBlogSource = [
       'img_name': 'china.jpg',
       'category': 'Hiking',
       'path': '/blog',
-      'ord': 3,
+      'ord': 7,
       'id': 7
     },
     {
@@ -60,7 +60,7 @@ export const localBlogSource = [
       'img_name': 'lakepalic.jpg',
       'category': 'Cycling',
       'path': '/blog',
-      'ord': 3,
+      'ord': 8,
       'id': 8
     }
 ]

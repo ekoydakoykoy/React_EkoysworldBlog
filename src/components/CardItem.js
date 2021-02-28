@@ -31,9 +31,7 @@ function CardItem(props) {
         setNewDescription('');
         setDblClick(false);        
         
-     }
-     
-     console.log(offlineBlogSource);
+     }     
 
      //get the 1 blogs
      const fetchBlog = async(id) => {
@@ -47,7 +45,6 @@ function CardItem(props) {
 
      }
      
-
     // //get all blog;
     // const fetchBlogs = async () => {
     //     const res = await fetch(`${serverPath}/blogs`);

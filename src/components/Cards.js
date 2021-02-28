@@ -24,13 +24,10 @@ function Cards(props) {
                 const blogsFromServer = await fetchBlogs();
                 if (blogsFromServer.length > 0 ) {         
                     setBlogs([]);
-                    setBlogs(blogsFromServer);  
-                    console.log('wa ni eror');      
+                    setBlogs(blogsFromServer);                     
                 } 
-            } catch (e)  {
-
-                setOfflineBlogSource(true);
-                console.log('ni eror');                
+            } catch(e)  {
+                setOfflineBlogSource(true);                                
             }
                                                                                
         }
@@ -103,33 +100,3 @@ function Cards(props) {
 }
 
 export default Cards
-
-{/* <div className='cards'>
-<h1> {heading}</h1> 
-<div className="cards--container"> 
-    <div className="cards--wrapper">   
-        {
-            rowUnique.map( (cont,contIndex) =>
-                (
-                    <ul key={contIndex} className="cards--items">
-                        {
-                            blogs.map( (blog,intd) => 
-                                (                                                                                                                                                                            
-                                     [blog.ord].includes(cont) && <CardItem 
-                                            key={blog.id}
-                                            src={`/images/${blog.img_name}`}
-                                            text={blog.text}
-                                            label={blog.label}
-                                            path={blog.path}
-                                        />   
-
-                                )   
-                            )
-                        }                                                   
-                    </ul> 
-                )
-            )
-        }
-     </div>  
-</div>             
-</div> */}

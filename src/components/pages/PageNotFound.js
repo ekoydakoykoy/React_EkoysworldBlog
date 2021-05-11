@@ -19,7 +19,10 @@ const PageNotFound = () => {
       </div>
       <div className="pnf-div pnf-remind">
         You might have type in the wrong address or the page has been moved. In
-        the meantime, try again or <Link to="/">return to the home page. </Link>
+        the meantime, try again or{" "}
+        <Link style={{ textDecoration: "none", color: "black" }} to="/">
+          return to the home page.{" "}
+        </Link>
       </div>
     </div>
   );

@@ -1,0 +1,32 @@
+.pnf-container{   
+    height: 100vh; 
+    width: 50%; 
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 25%;
+    margin-top: -3%;
+}
+.pagenotfound-img{
+    width: 70%;
+} 
+
+.pnf-div{
+    padding: 10px;
+}
+
+.pnf-head{
+    font-size: 3em;
+}
+
+.pnf-sub-head{
+    font-size: 2em;
+}
+
+
+.pnf-remind{
+    color: grey;
+    font-size: 1.5em;   
+}

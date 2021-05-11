@@ -23,7 +23,7 @@ function Home (){
         {/* {winsize}
         */}          
             <HeroSection />             
-            <Cards heading="Check out this epic destinations!" closeIcon={false}  numOfPageToShow='3'/>                        
+            <Cards heading="Check out this epic destinations!" closeIcon={false}  numOfPageToShow='3' />                        
         </>
     )
 }

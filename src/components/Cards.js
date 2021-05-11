@@ -3,6 +3,8 @@ import CardItem from './CardItem'
 import { localBlogSource } from './BlogItem';
 import './Cards.css';
 import Pagination from './Pagination';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 function Cards(props) {
     const { heading, closeIcon, numOfPageToShow  } = props;
@@ -11,8 +13,13 @@ function Cards(props) {
     const [blogs, setBlogs] = useState([]);   
     // const [numBlogs, setNumBlogs2] = useState(0);  
     const [offlineBlogSource, setOfflineBlogSource] = useState(false);
-    const [currentPage, setCurrentPage] = useState(1);
+    // const [currentPage, setCurrentPage] = useState(1);
     const [postPerPage, setPostPerPage] = useState(numOfPageToShow);
+
+     //redux access variable
+     const currentPage = useSelector(state => state.currentPage.page);
+
+     
 
     useEffect( () => {
         const getBlogs = async () => {
@@ -34,14 +41,13 @@ function Cards(props) {
         getBlogs();           
                       
     }, []);
-
     
     //get blog;
     const fetchBlogs = async () => {        
         try{
             const res = await fetch(`${serverPath}/blogs`);
             const data = await res.json();
-             return data;
+            return data;
         }catch {
             console.error('nothing to fetch');
         }    
@@ -57,13 +63,17 @@ function Cards(props) {
         }
     }
 
+
+    //show odd blogs in home
+    const oddBlogsOnly = blogs.filter((blog) => {    
+        return blog.id % 2 == 0;
+    });
+
     //show numberof items in the show cards ;
     const indexOfLastBlog = currentPage * postPerPage;
     const indexOfFirstBlog = indexOfLastBlog - postPerPage;
-    const currentPosts = blogs.slice(indexOfFirstBlog, indexOfLastBlog);
-    
-    //paginate function 
-    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+    const currentPosts = closeIcon ?  blogs.slice(indexOfFirstBlog, indexOfLastBlog) : oddBlogsOnly.slice(0,numOfPageToShow);
+    console.log(currentPage);
  
     return (
         <div className='cards'>
@@ -72,28 +82,30 @@ function Cards(props) {
                 <div className="cards--wrapper">   
                         <ul className="cards--items">
                             {
-                                currentPosts.map( (blog) => 
-                                    (                                                                                                                                                                            
+                                currentPosts.map( (blog) => {
+                                   const { id, img_name, description, category } = blog;
+                                    return (                                                                                                                                                                          
                                         <CardItem 
-                                        key={blog.id}
-                                        src={`/images/${blog.img_name}`}
-                                        text={blog.description}
-                                        label={blog.category}
+                                        key={id}
+                                        id={id}  
+                                        src={`/images/${img_name}`}
+                                        text={description}
+                                        label={category}
                                         path='/blog'
                                         numBlogs={currentPosts.length} 
                                         closeIcon={closeIcon}  
-                                        onDelete={ DeleteBlog }  
-                                        id={blog.id}  
-                                        offlineBlogSource = {offlineBlogSource}                                                                                                  
-                                        />   
-
+                                        onDelete={ DeleteBlog }                                         
+                                        offlineBlogSource = {offlineBlogSource}                                                                                                                                  
+                                        />  
                                     )   
+                                }
+             
                                 )
                             }                                                   
                         </ul>   
 
                  </div> 
-                 { closeIcon && <Pagination postPerPage={postPerPage} totalBlogs={blogs.length} paginate={paginate} currentPage={currentPage}/> }      
+                 { closeIcon && <Pagination postPerPage={postPerPage} totalBlogs={blogs.length} /> }      
             </div>             
         </div>
     );    

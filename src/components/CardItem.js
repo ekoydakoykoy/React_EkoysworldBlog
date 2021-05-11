@@ -3,8 +3,11 @@ import { Link } from 'react-router-dom';
 import './CardItem.css';
 import { Button } from './Button';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { changePage } from './redux/ducks/CurrentPage';
+
 function CardItem(props) {                                                               
-    const {id, src, text, label, path, numBlogs,closeIcon, onDelete, offlineBlogSource} = props;
+    const {id, src, text, label, path, numBlogs,closeIcon, onDelete} = props;
     
     const [dblclick, setDblClick] = useState(false);
     const [newDescription, setNewDescription] = useState('');
@@ -68,6 +71,14 @@ function CardItem(props) {
         }
  
      }
+     
+        //redux call function
+        const dispatch = useDispatch();
+        const handleChangePage = (id) => {        
+            dispatch(changePage(id));
+        }
+
+       // console.log(currentPage);
 
     return (
         <>
@@ -75,9 +86,9 @@ function CardItem(props) {
                      { closeIcon && <div className="cards--item--del" onClick={() =>  onDelete(id) }>
                         <i className="fas fa-times-circle"></i>
                     </div> }
-                    <Link className={`cards--item--link`}  to={path}>
-                        <figure className={`cards--item--pic-wrap`} data-category={label}>
-                            <img src={src} alt="Travel Image" className={`cards--item--img  ${closeIcon ? 'cssDisabled' : ''}`}/>
+                    <Link className={`cards--item--link`}  to={path} onClick={() => handleChangePage(id / 2)}>
+                        <figure className={`cards--item--pic-wrap`} data-category={label} >
+                            <img src={src} alt="Travel Image" className={`cards--item--img`}/>
                         </figure>   
                         <div onDoubleClick={() => {  setDblClick(!dblclick); }} className="cards--item--info">
                             <h5 className="cards--item--text">{finalDescription}</h5> 
